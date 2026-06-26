@@ -15,7 +15,7 @@ jobs:
         uses: yoshi389111/github-profile-3d-contrib@0.7.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SOURCE_NAME: madushansivam
+          USERNAME: madushansivam
       - name: Rename output to cube.svg
         run: |
           mkdir -p /tmp/publish
