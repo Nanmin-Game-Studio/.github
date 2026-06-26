@@ -1,34 +1,25 @@
 name: 3D Contribution Graph
-
 on:
   schedule:
-    - cron: "0 0 * * *"   # daily at midnight UTC
-  workflow_dispatch:        # lets you trigger it manually from the Actions tab
-
+    - cron: "0 0 * * *"
+  workflow_dispatch:
 permissions:
   contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Generate 3D graph
         uses: yoshi389111/github-profile-3d-contrib@0.7.1
         env:
-          SOURCE_NAME: madushansivam   # <-- replace with your PERSONAL github username
-          # Note: GitHub does not track a contribution calendar for
-          # organizations, only for user accounts. This will always render
-          # YOUR personal contribution history, not "the org's" activity —
-          # there's no such thing as the latter on GitHub's platform.
-
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE_NAME: madushansivam
       - name: Rename output to cube.svg
         run: |
           mkdir -p /tmp/publish
           cp profile-3d-contrib/profile-night-green.svg /tmp/publish/cube.svg
-
       - name: Publish to output branch
         run: |
           git config user.name "github-actions[bot]"
